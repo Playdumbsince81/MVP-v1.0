@@ -74,6 +74,11 @@ function App() {
   const [selectedNode, setSelectedNode] = useState(null);
   const [nodeConfig, setNodeConfig] = useState({});
   const [showConfigPanel, setShowConfigPanel] = useState(false);
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [apiKeys, setApiKeys] = useState({
+    openai: '',
+    anthropic: ''
+  });
   
   // Load module types and workflows
   useEffect(() => {
