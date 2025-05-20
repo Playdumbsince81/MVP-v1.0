@@ -211,11 +211,12 @@ async def get_module_types():
 @api_router.post("/workflows", response_model=Workflow)
 async def create_workflow(workflow: WorkflowCreate):
     workflow_data = workflow.dict()
+    workflow_id = str(uuid.uuid4())
+    workflow_data["id"] = workflow_id
     workflow_data["created_at"] = datetime.utcnow()
     workflow_data["updated_at"] = datetime.utcnow()
     
-    result = await db.workflows.insert_one(workflow_data)
-    workflow_data["id"] = str(result.inserted_id)
+    await db.workflows.insert_one(workflow_data)
     
     return Workflow(**workflow_data)
 
