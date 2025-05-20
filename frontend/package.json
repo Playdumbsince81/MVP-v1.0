@@ -6,7 +6,7 @@
     "@headlessui/react": "1.7.18",
     "@heroicons/react": "2.1.1",
     "@tailwindcss/forms": "0.5.7",
-    "axios": "^1.8.4",
+    "axios": "1.6.5",
     "cra-template": "1.2.0",
     "react": "^19.0.0",
     "react-beautiful-dnd": "13.1.1",
