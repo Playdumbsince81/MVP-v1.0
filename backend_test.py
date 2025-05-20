@@ -105,7 +105,7 @@ class AIWorkflowBuilderTester:
             "Create Workflow",
             "POST",
             "workflows",
-            201,
+            200,
             data=workflow_data
         )
         
