@@ -155,6 +155,7 @@ function App() {
     
     fetchModuleTypes();
     fetchWorkflows();
+    loadApiKeys(); // Load API keys
   }, []);
   
   // Handle workflow selection
