@@ -255,7 +255,7 @@ async def delete_workflow(workflow_id: str):
     await db.workflows.delete_one({"id": workflow_id})
     return {"message": "Workflow deleted successfully"}
 
-@api_router.post("/workflows/{workflow_id}/clone", response_model=Workflow)
+@api_router.post("/workflows/{workflow_id}/clone", response_model=Workflow, status_code=201)
 async def clone_workflow(workflow_id: str, name: str = Body(..., embed=True)):
     original_workflow = await db.workflows.find_one({"id": workflow_id})
     if not original_workflow:
@@ -270,11 +270,10 @@ async def clone_workflow(workflow_id: str, name: str = Body(..., embed=True)):
         parent_workflow=workflow_id
     )
     
-    result = await db.workflows.insert_one(new_workflow.dict())
     new_workflow_data = new_workflow.dict()
-    new_workflow_data["id"] = str(result.inserted_id)
+    await db.workflows.insert_one(new_workflow_data)
     
-    return Workflow(**new_workflow_data)
+    return new_workflow
 
 # AI Provider Configuration
 @api_router.post("/ai-providers", response_model=AIProviderConfig)
