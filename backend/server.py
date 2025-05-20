@@ -300,13 +300,25 @@ async def execute_workflow(workflow_id: str, inputs: Dict[str, Any] = Body({})):
     if not workflow:
         raise HTTPException(status_code=404, detail="Workflow not found")
     
+    # Extract API keys from inputs
+    openai_api_key = inputs.pop('openai_api_key', None)
+    anthropic_api_key = inputs.pop('anthropic_api_key', None)
+    
+    # In a real implementation, this would use the API keys to call the actual AI services
+    # For demo purposes, we'll just acknowledge the keys were provided
+    api_keys_info = {}
+    if openai_api_key:
+        api_keys_info["openai"] = "OpenAI API key provided"
+    if anthropic_api_key:
+        api_keys_info["anthropic"] = "Anthropic API key provided"
+    
     # Mock implementation - in a real app, this would run the workflow
-    # For now, just return a success message with the inputs
     return ExecutionResult(
         status="success",
         data={
             "message": "Workflow execution simulated",
             "workflow_id": workflow_id,
+            "api_keys_available": api_keys_info,
             "inputs": inputs,
             "result": "This is a simulated result to demonstrate the API. In a real implementation, this would return actual execution results."
         }
