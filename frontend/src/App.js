@@ -8,7 +8,6 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   addEdge,
-  Panel,
 } from 'react-flow-renderer';
 import { PlusIcon, Cog6ToothIcon, TrashIcon, ArrowPathIcon, DocumentDuplicateIcon, PlayIcon } from '@heroicons/react/24/outline';
 
