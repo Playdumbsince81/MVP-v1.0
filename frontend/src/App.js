@@ -631,6 +631,60 @@ function App() {
           </div>
         </div>
       </div>
+
+      {/* Admin Panel Modal */}
+      {showAdminPanel && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-96">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold">API Settings</h2>
+              <button
+                className="text-gray-500 hover:text-gray-700"
+                onClick={() => setShowAdminPanel(false)}
+              >
+                ✕
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  OpenAI API Key
+                </label>
+                <input
+                  type="password"
+                  value={apiKeys.openai}
+                  onChange={(e) => setApiKeys({ ...apiKeys, openai: e.target.value })}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="sk-..."
+                />
+              </div>
+              
+              <div>
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Anthropic API Key
+                </label>
+                <input
+                  type="password"
+                  value={apiKeys.anthropic}
+                  onChange={(e) => setApiKeys({ ...apiKeys, anthropic: e.target.value })}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="sk_ant-..."
+                />
+              </div>
+              
+              <div className="flex justify-end">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={saveApiKeys}
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
