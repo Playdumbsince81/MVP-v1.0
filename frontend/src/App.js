@@ -303,7 +303,17 @@ function App() {
     if (!selectedWorkflow) return;
     
     try {
-      const inputs = {}; // Collect inputs from input nodes
+      // Collect inputs from input nodes
+      const inputs = {};
+      
+      // Add API keys to the inputs
+      if (apiKeys.openai) {
+        inputs.openai_api_key = apiKeys.openai;
+      }
+      
+      if (apiKeys.anthropic) {
+        inputs.anthropic_api_key = apiKeys.anthropic;
+      }
       
       const response = await axios.post(`${API}/workflows/${selectedWorkflow.id}/execute`, inputs);
       
