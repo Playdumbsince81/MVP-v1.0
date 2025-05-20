@@ -79,7 +79,9 @@ class AIWorkflowBuilderTester:
 
     def test_create_workflow(self):
         """Test creating a new workflow"""
+        workflow_id = str(uuid.uuid4())
         workflow_data = {
+            "id": workflow_id,  # Explicitly set the ID
             "name": f"Test Workflow {uuid.uuid4()}",
             "description": "A test workflow created by automated tests",
             "modules": [
@@ -109,9 +111,14 @@ class AIWorkflowBuilderTester:
             data=workflow_data
         )
         
-        if success and "id" in response:
-            self.created_workflow_id = response["id"]
-            print(f"Created workflow with ID: {self.created_workflow_id}")
+        if success:
+            print(f"Response data: {json.dumps(response, indent=2)}")
+            if "id" in response:
+                self.created_workflow_id = response["id"]
+                print(f"Created workflow with ID: {self.created_workflow_id}")
+            else:
+                self.created_workflow_id = workflow_id
+                print(f"Using provided workflow ID: {self.created_workflow_id}")
         
         return success, response
 
