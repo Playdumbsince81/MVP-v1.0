@@ -80,6 +80,59 @@ function App() {
     anthropic: ''
   });
   
+  // Save API keys
+  const saveApiKeys = async () => {
+    try {
+      // Save OpenAI key
+      if (apiKeys.openai) {
+        await axios.post(`${API}/ai-providers`, {
+          id: 'openai-key',
+          name: 'OpenAI',
+          api_key: apiKeys.openai,
+          user_id: 'admin'
+        });
+      }
+      
+      // Save Anthropic key
+      if (apiKeys.anthropic) {
+        await axios.post(`${API}/ai-providers`, {
+          id: 'anthropic-key',
+          name: 'Anthropic',
+          api_key: apiKeys.anthropic,
+          user_id: 'admin'
+        });
+      }
+      
+      alert('API keys saved successfully!');
+      setShowAdminPanel(false);
+    } catch (error) {
+      console.error('Error saving API keys:', error);
+      alert('Error saving API keys. Please try again.');
+    }
+  };
+  
+  // Load API keys
+  const loadApiKeys = async () => {
+    try {
+      const response = await axios.get(`${API}/ai-providers?user_id=admin`);
+      const providers = response.data;
+      
+      const newApiKeys = { ...apiKeys };
+      
+      providers.forEach(provider => {
+        if (provider.name === 'OpenAI') {
+          newApiKeys.openai = provider.api_key;
+        } else if (provider.name === 'Anthropic') {
+          newApiKeys.anthropic = provider.api_key;
+        }
+      });
+      
+      setApiKeys(newApiKeys);
+    } catch (error) {
+      console.error('Error loading API keys:', error);
+    }
+  };
+  
   // Load module types and workflows
   useEffect(() => {
     const fetchModuleTypes = async () => {
