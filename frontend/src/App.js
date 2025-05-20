@@ -415,6 +415,13 @@ function App() {
           </div>
           
           <div className="mt-auto">
+            <button
+              onClick={() => setShowAdminPanel(true)}
+              className="text-gray-400 hover:text-white text-sm flex items-center mb-2"
+            >
+              <Cog6ToothIcon className="h-5 w-5 mr-2" />
+              Settings
+            </button>
             <a
               href="https://github.com"
               target="_blank"
