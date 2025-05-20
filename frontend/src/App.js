@@ -15,6 +15,24 @@ import { PlusIcon, Cog6ToothIcon, TrashIcon, ArrowPathIcon, DocumentDuplicateIco
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// Custom Panel Component
+const Panel = ({ position, className, children }) => {
+  const positionClass = {
+    'top-left': 'top-4 left-4',
+    'top-center': 'top-4 left-1/2 transform -translate-x-1/2',
+    'top-right': 'top-4 right-4',
+    'bottom-left': 'bottom-4 left-4',
+    'bottom-center': 'bottom-4 left-1/2 transform -translate-x-1/2',
+    'bottom-right': 'bottom-4 right-4',
+  }[position] || 'top-4 left-4';
+
+  return (
+    <div className={`absolute z-10 ${positionClass} ${className}`}>
+      {children}
+    </div>
+  );
+};
+
 // Custom Node Types
 const moduleTypeColors = {
   'Input': 'bg-blue-500',
